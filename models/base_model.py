@@ -18,16 +18,17 @@ from datetime import datetime
 class BaseModel:
     """BaseModel class: define all attributes and methods"""
     def __init__(self, *args, **kwargs):
-        if kwargs:
-            for k, v in kwargs.items():
-                if "created_at" == k or "updated_at" == k:
-                    self.__dict__[k] = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
-                else:
-                    self.__dict__[k] = v
-
+        tpyefrmt = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+        if kwargs:
+            for k, v in kwargs.items():
+                if "created_at" == k or "updated_at" == k:
+                    self.__dict__[k] = datetime.strptime(v, tpyefrmt)
+                else:
+                    self.__dict__[k] = v
+
 
     def __str__(self):
         """Method __str__ that print a string"""
