@@ -13,22 +13,24 @@
 """
 from uuid import uuid4
 from datetime import datetime
-from models import models
+from models import storage
+
+
 class BaseModel:
     """BaseModel class: define all attributes and methods"""
     def __init__(self, *args, **kwargs):
-        tpyefrmt = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        typefrmt = "%Y-%m-%dT%H:%M:%S.%f"
+        
         if kwargs:
             for k, v in kwargs.items():
-                if "created_at" == k or "updated_at" == k:
-                    self.__dict__[k] = datetime.strptime(v, tpyefrmt)
-                else:
-                    self.__dict__[k] = v
+                if "__class__" != k:    
+                    if "created_at" == k or "updated_at" == k:
+                        v = datetime.strptime(v, typefrmt)
         else:
-            models.storage.new(self)
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """Method __str__ that print a string"""
@@ -38,12 +40,12 @@ class BaseModel:
         """updates the public instance attribute updated_at with the
         current datetime"""
         self.updated_at = datetime.now()
-        self.updated_at = models.storage.save(self)
+        self.updated_at = storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values
         of __dict__ of the instance:"""
-        dictionary = self.__dict__
+        dictionary = self.__dict__.copy()
         dictionary["__class__"] = self.__class__.__name__
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
