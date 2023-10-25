@@ -13,8 +13,7 @@
 """
 from uuid import uuid4
 from datetime import datetime
-
-
+from models import models
 class BaseModel:
     """BaseModel class: define all attributes and methods"""
     def __init__(self, *args, **kwargs):
@@ -28,7 +27,8 @@ class BaseModel:
                     self.__dict__[k] = datetime.strptime(v, tpyefrmt)
                 else:
                     self.__dict__[k] = v
-
+        else:
+            models.storage.new(self)
 
     def __str__(self):
         """Method __str__ that print a string"""
@@ -38,6 +38,7 @@ class BaseModel:
         """updates the public instance attribute updated_at with the
         current datetime"""
         self.updated_at = datetime.now()
+        self.updated_at = models.storage.save(self)
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values
