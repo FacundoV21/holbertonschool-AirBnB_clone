@@ -20,14 +20,14 @@ class BaseModel:
     """BaseModel class: define all attributes and methods"""
     def __init__(self, *args, **kwargs):
         typefrmt = "%Y-%m-%dT%H:%M:%S.%f"
-        
+        self.id = str(uuid4())
         if kwargs:
             for k, v in kwargs.items():
-                if "__class__" != k:    
-                    if "created_at" == k or "updated_at" == k:
+                if k != "__class__":
+                    if k == "created_at" or k == "updated_at":
                         v = datetime.strptime(v, typefrmt)
+                        setattr(self, k, v)
         else:
-            self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
@@ -40,7 +40,7 @@ class BaseModel:
         """updates the public instance attribute updated_at with the
         current datetime"""
         self.updated_at = datetime.now()
-        self.updated_at = storage.save()
+        storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing all keys/values
