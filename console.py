@@ -31,16 +31,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         return True
-    
+
     def help_EOF(self):
         print("Closes the console and returns True\n")
 
     def do_quit(self, line):
         return True
-    
+
     def help_quit(self):
         print("Quit command to exit the program\n")
-    
+
     def emptyline(self):
         pass
 
@@ -57,7 +57,6 @@ class HBNBCommand(cmd.Cmd):
 
     def help_create(self):
         print("Creates a new instace of an object\n")
-
 
     def do_show(self, arg):
         arguments = arg.split()
@@ -98,7 +97,6 @@ class HBNBCommand(cmd.Cmd):
     def help_destroy(self):
         print("Deletes an instance based on the class name and id\n")
 
-
     def do_all(self, arg):
         arguments = arg.split()
         if len(arg) < 1:
@@ -120,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
     def help_all(self):
         print("Prints all string representation of all instances based\
  or not on the class name\n")
-    
+
     def do_update(self, arg):
         arguments = arg.split()
         if not arg:
@@ -147,6 +145,7 @@ class HBNBCommand(cmd.Cmd):
     def help_update(self):
         print("Updates an instance based on the class name and id by\
  adding or updating attribute\n")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

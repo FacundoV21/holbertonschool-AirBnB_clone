@@ -33,13 +33,13 @@ class FileStorage:
         from models.city import City
         from models.amenity import Amenity
         classes = {
-        "BaseModel":  BaseModel,
-        "User": User,
-        "Place": Place,
-        "Review": Review,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity
+            "BaseModel":  BaseModel,
+            "User": User,
+            "Place": Place,
+            "Review": Review,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity
         }
         try:
             with open(self.__file_path, "r") as f:

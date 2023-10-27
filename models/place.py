@@ -2,6 +2,7 @@
 """Class Amenity"""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """Class that inherits from BaseModel class"""
     city_id = ""
