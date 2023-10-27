@@ -14,20 +14,20 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 import sys
-    
+
 
 class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
-    classes = {
-        "BaseModel":  BaseModel,
-        "User": User,
-        "Place": Place,
-        "Review": Review,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity
-    }
+    classes = [
+        "BaseModel",
+        "User",
+        "Place",
+        "Review",
+        "State",
+        "City",
+        "Amenity"
+    ]
 
     def do_EOF(self, line):
         return True
@@ -45,15 +45,15 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        if not arg:
-            print("** class name missing **")
-        elif arg not in self.classes:
-            print("** class doesn't exist **")
-        else:
-            obj = self.classes[arg]()
-            storage.new(obj)
-            storage.save()
-            print(obj.id)
+        try:
+            inst = getattr(sys.modules[__name__], arg)()
+            print(inst.id)
+            inst.save()
+        except Exception:
+            if not arg:
+                print("** class name missing **")
+            else:
+                print("** class doesn't exist **")
 
     def help_create(self):
         print("Creates a new instace of an object\n")
@@ -84,21 +84,22 @@ class HBNBCommand(cmd.Cmd):
 
 
     def do_all(self, arg):
-        if arg and (arg not in self.classes):
-            print("** class doesn't exist **")
-        else:
+        arguments = arg.split()
+        if len(arg) < 1:
             inst = storage.all()
-            prt = []
-
-            if not arg:
-                for key, value in inst.items():
-                    #prt.append(str(inst[value]))
-                    print(str(inst[key]))
-            else:
-                for key, value in inst.items():
-                    if key.startswith(arg):
-                        prt.append(str(inst[key]))
-            print(prt)
+            the_list = []
+            for key, value in inst.items():
+                the_list.append(str(value))
+            print(the_list)
+        elif arguments[0] in self.classes:
+            inst = storage.all()
+            the_list = []
+            for key, value in inst.items():
+                if key.split(".")[0] == arguments[0]:
+                    the_list.append(str(value))
+                print(the_list)
+        else:
+            print("** class doesn't exist **")
 
 
     def help_all(self):
