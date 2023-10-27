@@ -79,6 +79,22 @@ class HBNBCommand(cmd.Cmd):
         print("Prints the string representation of an instance based on\
  the class name and id\n")
 
+    def do_destroy(self, arg):
+        arguments = arg.split()
+        if not arg:
+            print("** class name missing **")
+        elif arguments[0] not in self.classes:
+            print("** class doesn't exist **")
+        elif len(arguments) < 2:
+            print("** instance id missing **")
+        else:
+            key = f"{arguments[0]}.{arguments[1]}"
+            if key not in storage.all().keys():
+                print("** no instance found **")
+            else:
+                del storage.all()[key]
+                storage.save()
+
     def help_destroy(self):
         print("Deletes an instance based on the class name and id\n")
 
@@ -101,10 +117,32 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-
     def help_all(self):
         print("Prints all string representation of all instances based\
  or not on the class name\n")
+    
+    def do_update(self, arg):
+        arguments = arg.split()
+        if not arg:
+            print("** class name missing **")
+        elif arguments[0] not in self.classes:
+            print("** class doesn't exist **")
+        elif len(arguments) < 2:
+            print("** instance id missing **")
+        else:
+            key = f"{arguments[0]}.{arguments[1]}"
+            if key not in storage.all().keys():
+                print("** no instance found **")
+            elif len(arguments) < 3:
+                print("** attribute name missing **")
+            elif len(arguments) < 4:
+                print("** value missing **")
+            else:
+                content = arguments[3]
+
+                element = storage.all()[key]
+                element.__setattr__(arguments[2], content)
+                element.save()
 
     def help_update(self):
         print("Updates an instance based on the class name and id by\
