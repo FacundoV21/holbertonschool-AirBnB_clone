@@ -113,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
                     the_list.append(str(value))
                 print(the_list)
         else:
-            print("** class doesn't exist **")
+            print("** class doesn't exist **")
 
     def help_all(self):
         print("Prints all string representation of all instances based\
