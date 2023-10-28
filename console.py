@@ -111,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in inst.items():
                 if key.split(".")[0] == arguments[0]:
                     the_list.append(str(value))
-                print(the_list)
+            print(the_list)
         else:
             print("** class doesn't exist **")
 
