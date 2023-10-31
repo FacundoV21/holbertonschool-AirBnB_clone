@@ -10,7 +10,7 @@ who want to rent out their property with people who are looking for accommodatio
 The Console is a command-line interface from wich you can create, modify and delete objects in a file storage.  
 This console also allows the user to access the data, by listing, not only all elements of a class, but also specific instances of a specific class.
 
-## Commands  
+## Commands
 
 Command|Format|Use
 ---|---|---
@@ -22,6 +22,10 @@ show | show (class name) (existing id)| Shows an existing instance with all it's
 destroy | destroy (class name) (existing id)| Deletes an existing instance
 all | all [class name] | Shows all instances, or all instances of a specific class [] is optional
 update | update (class name) (id) (atribute name) (value) | Updates the info of a class instance
+
+## Program flow
+
+Click [here](https://miro.com/welcomeonboard/U0o4amlkWWJrbWdkZUFPRlJLMzB5SjhlMmRLUlRXczM1bGtOVk5ESEhoNHpkTkQ2Sjd6N0t6TVAzMnNqdnF6eXwzNDU4NzY0NTI1Njk3ODc1NTExfDI=?share_link_id=964350957586) to check our program's flowchart.
 
 ## Examples
 ```c
